@@ -207,7 +207,7 @@
             </div>
             <div class="contact-form-wrapper">
                 <div class="contact-form-container">
-                    <form id="contactForm" class="contact-form" action="https://formsubmit.co/dasbonna2004@gmail.com" method="post">
+                    <form id="contactForm" class="contact-form">
                         <div class="form-row">
                             <div class="form-group" style="flex: 1;">
                                 <label for="name">Name *</label>
@@ -485,21 +485,46 @@
         });
         
         // Contact form submission
-        const contactForm = document.getElementById('contactForm');
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form values
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
-            
-            // In a real application, you would send this data to a server
-            alert(`Thank you ${name}! Your message has been received. I'll get back to you at ${email} regarding "${subject}" soon.`);
-            
-            // Reset form
-            contactForm.reset();
-        });
+        // Line 335 থেকে শুরু হওয়া contact form event handler এর বদলে এটি ব্যবহার করুন:
+contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const subject = document.getElementById('subject').value;
+    const message = document.getElementById('message').value;
+    
+    if (!name || !email || !phone || !subject) {
+        alert('Please fill all required fields marked with *.');
+        return;
+    }
+    
+    // Create email body
+    const emailBody = `
+Name: ${name}
+Email: ${email}
+Phone: ${phone}
+Subject: ${subject}
+Date: ${document.getElementById('date').value}
+Time: ${document.getElementById('time').value}
+
+Message:
+${message}
+    `;
+    
+    // Open mail client
+    const mailtoLink = `mailto:dasbonna2004@gmail.com?subject=Portfolio Contact: ${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+    window.location.href = mailtoLink;
+    
+    // Show confirmation
+    alert(`Thank you ${name}! Your email client will open. Please click "Send" to send your message.`);
+    
+    // Reset form after a delay
+    setTimeout(() => {
+        contactForm.reset();
+    }, 2000);
+});
         
         // Smooth scrolling for navigation links
         document.querySelectorAll('nav a, .contact-btn').forEach(anchor => {
