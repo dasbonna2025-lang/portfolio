@@ -207,7 +207,11 @@
             </div>
             <div class="contact-form-wrapper">
                 <div class="contact-form-container">
-                    <form id="contactForm" class="contact-form">
+                    <form id="contactForm" action="https://formsubmit.co/dasbonna2004@gmail.com" method="POST" class="contact-form">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_subject" value="New Contact Message">
+                        <input type="hidden" name="_template" value="table">
+                        <input type="hidden" name="_next" value="https://dasbonna2025-lang.github.io/portfolio/thankyou.html">
                         <div class="form-row">
                             <div class="form-group" style="flex: 1;">
                                 <label for="name">Name *</label>
@@ -485,101 +489,7 @@
         });
         
         // Contact form submission
-        // EmailJS দিয়ে Contact Form Handler
-const contactForm = document.getElementById('contactForm');
-contactForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Show loading state
-    const submitBtn = contactForm.querySelector('.submit-btn');
-    const originalText = submitBtn.innerHTML;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-    submitBtn.disabled = true;
-    
-    // Collect form data
-    const formData = {
-        from_name: document.getElementById('name').value,
-        from_email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        subject: document.getElementById('subject').value,
-        contact_date: document.getElementById('date').value,
-        contact_time: document.getElementById('time').value,
-        message: document.getElementById('message').value || 'No additional message',
-        to_email: "dasbonna2004@gmail.com",
-        timestamp: new Date().toLocaleString("en-US", { 
-            timeZone: "Asia/Dhaka",
-            dateStyle: "full", 
-            timeStyle: "medium" 
-        })
-    };
-    
-    // Send email using EmailJS
-    emailjs.send(
-        'service_29zzgvo',    // আপনার EmailJS Service ID
-        'template_8vwz3zt',   // আপনার EmailJS Template ID
-        formData
-    )
-    .then(function(response) {
-        // Success message
-        alert(`Thank you ${name}! Your message has been received. I'll get back to you at ${email} regarding "${subject}" soon.`);
-        
-        // Reset form
-        contactForm.reset();
-        
-        // Success animation
-        submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent!';
-        submitBtn.style.backgroundColor = '#28a745';
-        
-        setTimeout(() => {
-            submitBtn.innerHTML = originalText;
-            submitBtn.style.backgroundColor = '';
-        }, 3000);
-    })
-    .catch(function(error) {
-        console.error('Email sending failed:', error);
-        
-        // Fallback: Show alternative options
-        const retry = confirm(
-            `Sorry ${formData.from_name}, email sending failed.\n\n` +
-            `Click OK to open your email client manually,\n` +
-            `or Cancel to try again later.\n\n` +
-            `Error: ${error.text || 'Network issue'}`
-        );
-        
-        if (retry) {
-            // Create mailto link as fallback
-            const mailtoBody = `
-Name: ${formData.from_name}
-Email: ${formData.from_email}
-Phone: ${formData.phone}
-Subject: ${formData.subject}
-Contact Date: ${formData.contact_date}
-Contact Time: ${formData.contact_time}
-
-Message:
-${formData.message}
-            `;
             
-            const mailtoLink = `mailto:${formData.to_email}?subject=Portfolio Contact: ${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(mailtoBody)}`;
-            window.location.href = mailtoLink;
-            
-            alert('Your email client will open. Please click "Send" to send your message.');
-            
-            // Still reset form
-            setTimeout(() => {
-                contactForm.reset();
-            }, 1000);
-        }
-    })
-    .finally(function() {
-        // Re-enable button (except when we set it to success state)
-        if (!submitBtn.innerHTML.includes('fa-check')) {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-        }
-    });
-});
-        
         // Smooth scrolling for navigation links
         document.querySelectorAll('nav a, .contact-btn').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
