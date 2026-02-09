@@ -514,7 +514,27 @@ contactForm.addEventListener('submit', function(e) {
     };
     
     // Send email using EmailJS
-    
+    emailjs.send(
+        'service_29zzgvo',    // আপনার EmailJS Service ID
+        'template_8vwz3zt',   // আপনার EmailJS Template ID
+        formData
+    )
+    .then(function(response) {
+        // Success message
+        alert(`Thank you ${name}! Your message has been received. I'll get back to you at ${email} regarding "${subject}" soon.`);
+        
+        // Reset form
+        contactForm.reset();
+        
+        // Success animation
+        submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent!';
+        submitBtn.style.backgroundColor = '#28a745';
+        
+        setTimeout(() => {
+            submitBtn.innerHTML = originalText;
+            submitBtn.style.backgroundColor = '';
+        }, 3000);
+    })
     .catch(function(error) {
         console.error('Email sending failed:', error);
         
