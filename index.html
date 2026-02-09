@@ -207,57 +207,76 @@
             </div>
             <div class="contact-form-wrapper">
                 <div class="contact-form-container">
-                    <form id="contactForm" action="https://formsubmit.co/dasbonna2004@gmail.com" method="POST" class="contact-form">
-                        <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_subject" value="New Contact Message">
-                        <input type="hidden" name="_template" value="table">
-                        <input type="hidden" name="_next" value="https://dasbonna2025-lang.github.io/portfolio/thankyou.html">
-                        <div class="form-row">
-                            <div class="form-group" style="flex: 1;">
-                                <label for="name">Name *</label>
-                                <input type="text" id="name" class="form-control" required>
-                            </div>
-                            <div class="form-group" style="flex: 1;">
-                                <label for="email">Email *</label>
-                                <input type="email" id="email" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group" style="flex: 1;">
-                                <label for="phone">Phone Number *</label>
-                                <input type="tel" id="phone" class="form-control" required>
-                            </div>
-                            <div class="form-group" style="flex: 1;">
-                                <label for="subject">Subject *</label>
-                                <input type="text" id="subject" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group" style="flex: 1;">
-                                <label for="date">Contact Date</label>
-                                <input type="date" id="date" class="form-control">
-                            </div>
-                            <div class="form-group" style="flex: 1;">
-                                <label for="time">Contact Time</label>
-                                <input type="time" id="time" class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Additional Message</label>
-                            <textarea id="message" class="form-control" rows="5"></textarea>
-                        </div>
-                        <div class="form-action-row">
-                            <button type="submit" class="submit-btn">
-                                <i class="fas fa-paper-plane"></i>
-                                Send Message
-                            </button>
-                            <div class="contact-icons-row">
-                                <a href="https://github.com/dasbonna2025-lang" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                                <a href="https://www.linkedin.com/in/bonna-das-388a832b1" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="https://wa.me/8801644157996" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                            </div>
-                        </div>
-                    </form>
+                    <form id="contactForm"
+      action="https://formsubmit.co/dasbonna2004@gmail.com"
+      method="POST"
+      class="contact-form">
+
+    <!-- FormSubmit settings -->
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_subject" value="New Contact Message">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_next" value="https://dasbonna2025-lang.github.io/portfolio/thankyou.html">
+
+    <div class="form-row">
+        <div class="form-group" style="flex: 1;">
+            <label for="name">Name *</label>
+            <input type="text" id="name" name="name" class="form-control" required>
+        </div>
+        <div class="form-group" style="flex: 1;">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" class="form-control" required>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group" style="flex: 1;">
+            <label for="phone">Phone Number *</label>
+            <input type="tel" id="phone" name="phone" class="form-control" required>
+        </div>
+        <div class="form-group" style="flex: 1;">
+            <label for="subject">Subject *</label>
+            <input type="text" id="subject" name="subject" class="form-control" required>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group" style="flex: 1;">
+            <label for="date">Contact Date</label>
+            <input type="date" id="date" name="contact_date" class="form-control">
+        </div>
+        <div class="form-group" style="flex: 1;">
+            <label for="time">Contact Time</label>
+            <input type="time" id="time" name="contact_time" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="message">Additional Message</label>
+        <textarea id="message" name="message" class="form-control" rows="5"></textarea>
+    </div>
+
+    <div class="form-action-row">
+        <button type="submit" class="submit-btn">
+            <i class="fas fa-paper-plane"></i>
+            Send Message
+        </button>
+
+        <div class="contact-icons-row">
+            <a href="https://github.com/dasbonna2025-lang" target="_blank" title="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/bonna-das-388a832b1" target="_blank" title="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://wa.me/8801644157996" target="_blank" title="WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+    </div>
+
+</form>
+
                 </div>
             </div>
         </div>
