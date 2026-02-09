@@ -485,45 +485,47 @@
         });
         
         // Contact form submission
-        // Line 335 থেকে শুরু হওয়া contact form event handler এর বদলে এটি ব্যবহার করুন:
-contactForm.addEventListener('submit', function(e) {
+        (function(){
+    emailjs.init("--3CJ91OROLnydhaf");
+})();
+
+document.getElementById("contactForm").addEventListener("submit", function(e){
     e.preventDefault();
-    
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const phone = document.getElementById('phone').value;
-    const subject = document.getElementById('subject').value;
-    const message = document.getElementById('message').value;
-    
-    if (!name || !email || !phone || !subject) {
-        alert('Please fill all required fields marked with *.');
+
+    // Hide previous messages
+    document.getElementById("successMsg").style.display = "none";
+    document.getElementById("errorMsg").style.display = "none";
+
+    // Show loader
+    const loader = document.getElementById("loader");
+    loader.style.display = "block";
+
+    // Basic front-end validation
+    const name = this.name.value.trim();
+    const email = this.email.value.trim();
+    const message = this.message.value.trim();
+
+    if(!name || !email || !message){
+        loader.style.display = "none";
+        document.getElementById("errorMsg").textContent = "Please fill in all fields.";
+        document.getElementById("errorMsg").style.display = "block";
         return;
     }
-    
-    // Create email body
-    const emailBody = `
-Name: ${name}
-Email: ${email}
-Phone: ${phone}
-Subject: ${subject}
-Date: ${document.getElementById('date').value}
-Time: ${document.getElementById('time').value}
 
-Message:
-${message}
-    `;
-    
-    // Open mail client
-    const mailtoLink = `mailto:dasbonna2004@gmail.com?subject=Portfolio Contact: ${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
-    window.location.href = mailtoLink;
-    
-    // Show confirmation
-    alert(`Thank you ${name}! Your email client will open. Please click "Send" to send your message.`);
-    
-    // Reset form after a delay
-    setTimeout(() => {
-        contactForm.reset();
-    }, 2000);
+    emailjs.sendForm(
+        "service_29zzgvo",
+        "template_8vwz3zt",
+        this
+    ).then(function() {
+        loader.style.display = "none";
+        document.getElementById("successMsg").style.display = "block";
+        document.getElementById("contactForm").reset();
+    }, function(error) {
+        loader.style.display = "none";
+        document.getElementById("errorMsg").textContent = "Failed to send message. Please try again.";
+        document.getElementById("errorMsg").style.display = "block";
+        console.log("EmailJS error:", error);
+    });
 });
         
         // Smooth scrolling for navigation links
