@@ -485,46 +485,78 @@
         });
         
         // Contact form submission
-        (function(){
-    emailjs.init("--3CJ91OROLnydhaf");
-})();
-
-document.getElementById("contactForm").addEventListener("submit", function(e){
+        // EmailJS দিয়ে Contact Form Handler
+const contactForm = document.getElementById('contactForm');
+contactForm.addEventListener('submit', function(e) {
     e.preventDefault();
+    
+    // Show loading state
+    const submitBtn = contactForm.querySelector('.submit-btn');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    submitBtn.disabled = true;
+    
+    // Collect form data
+    const formData = {
+        from_name: document.getElementById('name').value,
+        from_email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        subject: document.getElementById('subject').value,
+        contact_date: document.getElementById('date').value,
+        contact_time: document.getElementById('time').value,
+        message: document.getElementById('message').value || 'No additional message',
+        to_email: "dasbonna2004@gmail.com",
+        timestamp: new Date().toLocaleString("en-US", { 
+            timeZone: "Asia/Dhaka",
+            dateStyle: "full", 
+            timeStyle: "medium" 
+        })
+    };
+    
+    // Send email using EmailJS
+    
+    .catch(function(error) {
+        console.error('Email sending failed:', error);
+        
+        // Fallback: Show alternative options
+        const retry = confirm(
+            `Sorry ${formData.from_name}, email sending failed.\n\n` +
+            `Click OK to open your email client manually,\n` +
+            `or Cancel to try again later.\n\n` +
+            `Error: ${error.text || 'Network issue'}`
+        );
+        
+        if (retry) {
+            // Create mailto link as fallback
+            const mailtoBody = `
+Name: ${formData.from_name}
+Email: ${formData.from_email}
+Phone: ${formData.phone}
+Subject: ${formData.subject}
+Contact Date: ${formData.contact_date}
+Contact Time: ${formData.contact_time}
 
-    // Hide previous messages
-    document.getElementById("successMsg").style.display = "none";
-    document.getElementById("errorMsg").style.display = "none";
-
-    // Show loader
-    const loader = document.getElementById("loader");
-    loader.style.display = "block";
-
-    // Basic front-end validation
-    const name = this.name.value.trim();
-    const email = this.email.value.trim();
-    const message = this.message.value.trim();
-
-    if(!name || !email || !message){
-        loader.style.display = "none";
-        document.getElementById("errorMsg").textContent = "Please fill in all fields.";
-        document.getElementById("errorMsg").style.display = "block";
-        return;
-    }
-
-    emailjs.sendForm(
-        "service_29zzgvo",
-        "template_8vwz3zt",
-        this
-    ).then(function() {
-        loader.style.display = "none";
-        document.getElementById("successMsg").style.display = "block";
-        document.getElementById("contactForm").reset();
-    }, function(error) {
-        loader.style.display = "none";
-        document.getElementById("errorMsg").textContent = "Failed to send message. Please try again.";
-        document.getElementById("errorMsg").style.display = "block";
-        console.log("EmailJS error:", error);
+Message:
+${formData.message}
+            `;
+            
+            const mailtoLink = `mailto:${formData.to_email}?subject=Portfolio Contact: ${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(mailtoBody)}`;
+            window.location.href = mailtoLink;
+            
+            alert('Your email client will open. Please click "Send" to send your message.');
+            
+            // Still reset form
+            setTimeout(() => {
+                contactForm.reset();
+            }, 1000);
+        }
+    })
+    .finally(function() {
+        // Re-enable button (except when we set it to success state)
+        if (!submitBtn.innerHTML.includes('fa-check')) {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }
     });
 });
         
